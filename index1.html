@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amigo Secreto · Família Reis</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff6e6;--card:#ffffff;--text:#2b1812;--muted:#7b6457;--line:#ecdcc3;--chip:#fff0c9;--red:#c8102e;--gold:#f5b700;--night:#150b0b;--palm:#1e6b4f;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150d0c;--card:#231514;--text:#fbefe0;--muted:#b99f8e;--line:#3d2623;--chip:#3a2a14;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#150d0c;--card:#231514;--text:#fbefe0;--muted:#b99f8e;--line:#3d2623;--chip:#3a2a14;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;min-height:100%}
+header{position:relative;overflow:hidden;color:#fff;text-align:center;padding:44px 20px 56px;background:linear-gradient(180deg,var(--red) 0 52%,var(--night) 52% 100%)}
+header::after{content:"";position:absolute;left:0;right:0;top:calc(52% - 3px);height:6px;background:var(--gold)}
+.flake{position:absolute;top:-24px;pointer-events:none;animation:fall linear infinite;opacity:.85}
+@keyframes fall{to{transform:translateY(340px) rotate(300deg)}}
+header h1{position:relative;z-index:1;margin:0;font-size:clamp(2.6rem,11vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.03em}
+header p{position:relative;z-index:1;margin:12px 0 0;font-size:1.05rem}
+.count{position:relative;z-index:1;display:inline-block;margin-top:18px;padding:6px 16px;border-radius:99px;background:var(--gold);color:#2b1812;font-weight:600}
+.bar{position:absolute;z-index:2;top:10px;right:10px;display:flex;gap:6px}
+.bar button{background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:4px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+main{max-width:720px;margin:-28px auto 0;padding:0 16px 56px;position:relative;z-index:3}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:16px;box-shadow:0 8px 24px rgba(40,10,10,.12)}
+h2{margin:0 0 12px;font-size:1.35rem;letter-spacing:-.01em}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input[type=text],input[type=number]{flex:1;min-width:0;font:inherit;font-size:1rem;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;background:var(--red);color:#fff}
+.btn.gold{background:var(--gold);color:#2b1812}
+.btn.ghost{background:transparent;color:var(--text);border:2px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.big{width:100%;font-size:1.25rem;padding:16px;margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.chips li{background:var(--chip);border-radius:99px;padding:6px 8px 6px 14px;display:flex;align-items:center;gap:6px;font-weight:600}
+.chips button{border:0;background:transparent;color:var(--muted);font-size:1.1rem;cursor:pointer;border-radius:50%;width:24px;height:24px;line-height:1}
+.muted{color:var(--muted);font-size:.92rem;margin:8px 0 0}
+label{display:block;font-weight:600;margin:16px 0 6px}
+.rules{margin:0;padding-left:20px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.who{position:relative;font:inherit;font-weight:800;font-size:1.1rem;padding:22px 10px;border-radius:16px;border:2px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;transition:transform .15s}
+.who:hover{transform:translateY(-3px) rotate(-1deg)}
+.who::before{content:"🎁";display:block;font-size:1.8rem}
+.who.done{background:var(--palm);border-color:var(--palm);color:#fff}
+.who.done::before{content:"✅"}
+.veil{position:fixed;inset:0;z-index:50;background:rgba(15,5,5,.88);display:none;align-items:center;justify-content:center;padding:20px}
+.veil.on{display:flex}
+.sheet{width:100%;max-width:420px;background:var(--card);border-radius:24px;padding:28px 22px;text-align:center;border:3px solid var(--gold)}
+.sheet .name{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:800;color:var(--red);line-height:1;margin:10px 0;word-break:break-word}
+.env{font-size:4.5rem;line-height:1;animation:pop .5s ease-out}
+@keyframes pop{from{transform:scale(.3) rotate(-25deg);opacity:0}to{transform:none;opacity:1}}
+.shuf{font-size:clamp(2rem,9vw,3.2rem);font-weight:800;color:#fff;text-align:center}
+.stack{display:grid;gap:8px;margin-top:16px}
+.done-banner{background:linear-gradient(90deg,var(--red),#7a0a1c);color:#fff;border-radius:20px;padding:22px;text-align:center;margin-bottom:16px;font-size:1.2rem;font-weight:800}
+@media (prefers-reduced-motion:reduce){.flake{animation:none}.env{animation:none}.who{transition:none}}
+textarea{width:100%;min-height:120px;margin-top:12px;font:12px/1.4 ui-monospace,Menlo,monospace;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text);padding:10px}.who:disabled{opacity:.35;cursor:not-allowed;transform:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"><button id="lang" type="button">EN</button></div>
+  <h1 id="ttl">Amigo Secreto</h1>
+  <p id="sub">Família Reis · Natal em Angola</p>
+  <div class="count" id="count"></div>
+</header>
+<main id="app"></main>
+<div class="veil" id="veil" role="dialog" aria-modal="true"><div id="veilBody"></div></div>
+
+<script>
+// >>> CHANGE THIS: organizer passcode for the admin page (#admin) <<<
+var ADMIN_CODE="reis2026";
+var T={
+pt:{sub:"Família Reis · Natal em Angola",days:"Faltam {n} dias para o Natal",today:"Hoje é Natal! Feliz Natal! 🎄",who:"Quem vai jogar?",ph:"Escreve um nome…",add:"Adicionar",rm:"Remover",budget:"Orçamento por presente (Kz)",bph:"ex.: 5000",min:"Precisas de pelo menos 3 pessoas.",dup:"Esse nome já está na lista.",draw:"🎲 Sortear!",redraw:"🎲 Sortear outra vez",tap:"Toca no teu nome",tapSub:"Abre no teu próprio telemóvel e toca no teu nome. Não espreitem!",locked:"Este telemóvel é do(a) {n}. Toca no teu nome para ver outra vez.",notme:"Não sou eu",are:"És {n}?",yes:"Sim, sou eu. Revelar",no:"Não, voltar",is:"O teu amigo secreto é",bud:"Orçamento: {b} Kz",close:"Fechar e esconder",wait:"O sorteio ainda não foi feito. Volta mais tarde! 🎅",gate:"Código do organizador",enter:"Entrar",bad:"Código errado.",adm:"Painel do organizador",ready:"Sorteio feito! Falta enviar para o site",steps:"1) Descarrega o draw.json (ou copia o conteúdo). 2) No GitHub: Add file → Upload files → carrega o draw.json ao lado do index.html (ou Create new file, nome draw.json, cola o conteúdo). 3) Commit changes. Em 1–2 minutos a família já vê.",dl:"⬇ Descarregar draw.json",cj:"Copiar conteúdo",copied:"Copiado!",fam:"Ver página da família"},
+en:{sub:"The Reis Family · Christmas in Angola",days:"{n} days until Christmas",today:"It’s Christmas! Merry Christmas! 🎄",tap:"Tap your name",tapSub:"Open this on your own phone and tap your name. No peeking!",locked:"This phone belongs to {n}. Tap your name to view it again.",notme:"That’s not me",are:"Are you {n}?",yes:"Yes, it’s me. Reveal",no:"No, go back",is:"Your secret friend is",bud:"Budget: {b} Kz",close:"Close and hide",wait:"The draw hasn’t been done yet. Check back soon! 🎅"}
+};
+var KEY="reis-amigo-secreto-v1",MEKEY="reis-me-v1";
+var S={lang:"pt",names:[],budget:"",map:null};
+var D=null,authed=false,admin=location.hash==="#admin";
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);if(o&&Array.isArray(o.names))S=Object.assign(S,o)}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function t(k,v){var s=(T[S.lang]&&T[S.lang][k])||T.pt[k]||k;for(var x in (v||{}))s=s.split("{"+x+"}").join(v[x]);return s}
+function $(id){return document.getElementById(id)}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function rnd(n){try{var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}catch(e){return Math.floor(Math.random()*n)}}
+function snow(el,chars,n){for(var i=0;i<n;i++){var s=document.createElement("span");s.className="flake";s.textContent=chars[i%chars.length];s.style.left=(Math.random()*100)+"%";s.style.fontSize=(10+Math.random()*16)+"px";s.style.animationDuration=(5+Math.random()*7)+"s";s.style.animationDelay=(-Math.random()*10)+"s";el.insertBefore(s,el.firstChild)}}
+snow(document.querySelector("header"),["❄","✦","❅","🎄"],26);
+function countdown(){var n=new Date(),d=Math.ceil((new Date(n.getFullYear(),11,25)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5);$("count").textContent=d<=0?t("today"):t("days",{n:d})}
+
+// One single cycle (Sattolo): nobody can ever draw themselves
+function draw(){var n=S.names.length,p=[],i;for(i=0;i<n;i++)p.push(i);for(i=n-1;i>0;i--){var j=rnd(i),x=p[i];p[i]=p[j];p[j]=x}var m={};for(i=0;i<n;i++)m[i]=p[i];return m}
+// Light scrambling so the draw file is not plain text
+function kb(g,salt){return new TextEncoder().encode(g+"|"+salt)}
+function enc(g,r,salt){var b=new TextEncoder().encode(r),k=kb(g,salt),o="";for(var i=0;i<b.length;i++)o+=String.fromCharCode(b[i]^k[i%k.length]);return btoa(o)}
+function dec(g,s,salt){var r=atob(s),k=kb(g,salt),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i)^k[i%k.length];return new TextDecoder().decode(a)}
+function build(){if(!S.id){S.id=Date.now().toString(36);S.salt=Math.random().toString(36).slice(2,10);save()}
+ var e=S.names.map(function(n,i){return enc(n,S.names[S.map[i]],S.salt)});
+ return JSON.stringify({id:S.id,salt:S.salt,budget:S.budget||"",names:S.names,enc:e},null,1)}
+function loadDraw(){return fetch("draw.json?v="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){D=(j&&j.names&&j.enc)?j:null}).catch(function(){D=null})}
+function getMe(){try{var o=JSON.parse(localStorage.getItem(MEKEY));if(o&&D&&o.id===D.id&&D.names[o.i]!==undefined)return o}catch(e){}return null}
+
+function gateHTML(){return '<section class="card"><h2>'+t("adm")+'</h2><form id="g" class="row"><input type="password" id="pw" placeholder="'+t("gate")+'" aria-label="'+t("gate")+'" autocomplete="off" style="flex:1;min-width:0;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text)"><button class="btn" type="submit">'+t("enter")+'</button></form><p class="muted" id="err" role="status"></p></section>'}
+function adminHTML(){
+ var h='<section class="card"><h2>'+t("who")+'</h2><form id="f" class="row"><input type="text" id="nm" maxlength="24" placeholder="'+t("ph")+'" aria-label="'+t("ph")+'" autocomplete="off"><button class="btn" type="submit">'+t("add")+'</button></form><p class="muted" id="err" role="status"></p><ul class="chips">';
+ S.names.forEach(function(n,i){h+='<li>'+esc(n)+'<button type="button" data-rm="'+i+'" aria-label="'+t("rm")+' '+esc(n)+'">×</button></li>'});
+ h+='</ul><label for="bg">'+t("budget")+'</label><input type="number" inputmode="numeric" id="bg" min="0" placeholder="'+t("bph")+'" value="'+esc(S.budget||"")+'"><button class="btn gold big" id="go" type="button"'+(S.names.length<3?" disabled":"")+'>'+(S.map?t("redraw"):t("draw"))+'</button>'+(S.names.length<3?'<p class="muted">'+t("min")+'</p>':'')+'</section>';
+ if(S.map)h+='<section class="card"><h2>'+t("ready")+'</h2><p class="muted" style="margin:0">'+t("steps")+'</p><div class="stack"><button class="btn gold" id="dl" type="button">'+t("dl")+'</button><button class="btn ghost" id="cj" type="button">'+t("cj")+'</button></div><textarea id="ta" readonly>'+esc(build())+'</textarea></section>';
+ return h+'<a class="btn ghost big" style="display:block;text-align:center;text-decoration:none" href="./">'+t("fam")+'</a>'}
+function publicHTML(){
+ if(!D)return '<section class="card"><h2>🎅</h2><p style="margin:0">'+t("wait")+'</p></section>';
+ var me=getMe(),h='<section class="card"><h2>'+t("tap")+'</h2><p class="muted" style="margin:0 0 14px">'+(me?t("locked",{n:esc(D.names[me.i])}):t("tapSub"))+'</p><div class="grid">';
+ D.names.forEach(function(n,i){h+='<button type="button" class="who'+(me&&me.i===i?" done":"")+'" data-who="'+i+'"'+(me&&me.i!==i?" disabled":"")+'>'+esc(n)+'</button>'});
+ return h+'</div>'+(me?'<button class="btn ghost" id="notme" type="button" style="margin-top:14px">'+t("notme")+'</button>':'')+'</section>'}
+
+function render(){
+ document.documentElement.lang=S.lang;$("sub").textContent=t("sub");$("lang").textContent=S.lang==="pt"?"EN":"PT";countdown();
+ $("app").innerHTML=admin?(authed?adminHTML():gateHTML()):publicHTML();
+ var g=$("g");if(g)g.onsubmit=function(e){e.preventDefault();if($("pw").value===ADMIN_CODE){authed=true;render()}else $("err").textContent=t("bad")};
+ var f=$("f");if(f)f.onsubmit=function(e){e.preventDefault();var v=$("nm").value.trim();if(!v)return;
+  if(S.names.some(function(n){return n.toLowerCase()===v.toLowerCase()})){$("err").textContent=t("dup");return}
+  S.names.push(v);S.map=null;S.id=null;save();render();$("nm").focus()};
+ var b=$("bg");if(b)b.oninput=function(){S.budget=b.value;save();if(S.map&&$("ta"))$("ta").value=build()};
+ if($("go"))$("go").onclick=function(){S.map=draw();S.id=null;save();render()};
+ if($("dl"))$("dl").onclick=function(){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([build()],{type:"application/json"}));a.download="draw.json";document.body.appendChild(a);a.click();a.remove()};
+ if($("cj"))$("cj").onclick=function(){try{navigator.clipboard.writeText(build()).then(function(){$("cj").textContent=t("copied")})}catch(e){$("ta").select()}};
+ if($("notme"))$("notme").onclick=function(){try{localStorage.removeItem(MEKEY)}catch(e){}render()};
+}
+document.addEventListener("click",function(e){var el=e.target.closest("[data-rm]");if(el){S.names.splice(+el.getAttribute("data-rm"),1);S.map=null;S.id=null;save();render();return}
+ el=e.target.closest("[data-who]");if(el&&!el.disabled){var i=+el.getAttribute("data-who");getMe()?reveal(i):ask(i)}});
+function ask(i){
+ $("veil").classList.add("on");
+ $("veilBody").innerHTML='<div class="sheet"><div class="env">✉️</div><h2 style="margin-top:12px">'+t("are",{n:'<span style="color:var(--red)">'+esc(D.names[i])+'</span>'})+'</h2><div class="stack"><button class="btn big" id="yes" type="button" style="margin:0">'+t("yes")+'</button><button class="btn ghost" id="no" type="button">'+t("no")+'</button></div></div>';
+ $("yes").onclick=function(){try{localStorage.setItem(MEKEY,JSON.stringify({id:D.id,i:i}))}catch(e){}render();reveal(i)};
+ $("no").onclick=function(){$("veil").classList.remove("on")};$("yes").focus()}
+function reveal(i){
+ var b=dec(D.names[i],D.enc[i],D.salt),bud=D.budget&&+D.budget>0?(+D.budget).toLocaleString("pt-PT"):"";
+ $("veil").classList.add("on");
+ $("veilBody").innerHTML='<div class="sheet"><div class="env">🎅</div><p class="muted" style="margin:6px 0 0">'+t("is")+'</p><div class="name">'+esc(b)+'</div>'+(bud?'<p class="muted" style="margin:0">'+t("bud",{b:bud})+'</p>':'')+'<div class="stack"><button class="btn ghost" id="cl" type="button">'+t("close")+'</button></div></div>';
+ $("cl").onclick=function(){$("veil").classList.remove("on");$("veilBody").innerHTML=""};$("cl").focus()}
+$("lang").onclick=function(){S.lang=S.lang==="pt"?"en":"pt";save();render()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("veil").classList.remove("on")});
+window.addEventListener("hashchange",function(){location.reload()});
+if(admin){render()}else{render();loadDraw().then(render)}
+</script>
+</body>
+</html>
