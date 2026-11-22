@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amigo Secreto · Família Reis</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff6e6;--card:#ffffff;--text:#2b1812;--muted:#7b6457;--line:#ecdcc3;--chip:#fff0c9;--red:#c8102e;--gold:#f5b700;--night:#150b0b;--palm:#1e6b4f;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150d0c;--card:#231514;--text:#fbefe0;--muted:#b99f8e;--line:#3d2623;--chip:#3a2a14;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#150d0c;--card:#231514;--text:#fbefe0;--muted:#b99f8e;--line:#3d2623;--chip:#3a2a14;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;min-height:100%}
+header{position:relative;overflow:hidden;color:#fff;text-align:center;padding:44px 20px 56px;background:linear-gradient(180deg,var(--red) 0 52%,var(--night) 52% 100%)}
+header::after{content:"";position:absolute;left:0;right:0;top:calc(52% - 3px);height:6px;background:var(--gold)}
+.flake{position:absolute;top:-24px;pointer-events:none;animation:fall linear infinite;opacity:.85}
+@keyframes fall{to{transform:translateY(340px) rotate(300deg)}}
+header h1{position:relative;z-index:1;margin:0;font-size:clamp(2.6rem,11vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.03em}
+header p{position:relative;z-index:1;margin:12px 0 0;font-size:1.05rem}
+.count{position:relative;z-index:1;display:inline-block;margin-top:18px;padding:6px 16px;border-radius:99px;background:var(--gold);color:#2b1812;font-weight:600}
+.bar{position:absolute;z-index:2;top:10px;right:10px;display:flex;gap:6px}
+.bar button{background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:4px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+main{max-width:720px;margin:-28px auto 0;padding:0 16px 56px;position:relative;z-index:3}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;margin-bottom:16px;box-shadow:0 8px 24px rgba(40,10,10,.12)}
+h2{margin:0 0 12px;font-size:1.35rem;letter-spacing:-.01em}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+input[type=text],input[type=number]{flex:1;min-width:0;font:inherit;font-size:1rem;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--text)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;background:var(--red);color:#fff}
+.btn.gold{background:var(--gold);color:#2b1812}
+.btn.ghost{background:transparent;color:var(--text);border:2px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.big{width:100%;font-size:1.25rem;padding:16px;margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.chips li{background:var(--chip);border-radius:99px;padding:6px 8px 6px 14px;display:flex;align-items:center;gap:6px;font-weight:600}
+.chips button{border:0;background:transparent;color:var(--muted);font-size:1.1rem;cursor:pointer;border-radius:50%;width:24px;height:24px;line-height:1}
+.muted{color:var(--muted);font-size:.92rem;margin:8px 0 0}
+label{display:block;font-weight:600;margin:16px 0 6px}
+.rules{margin:0;padding-left:20px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.who{position:relative;font:inherit;font-weight:800;font-size:1.1rem;padding:22px 10px;border-radius:16px;border:2px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;transition:transform .15s}
+.who:hover{transform:translateY(-3px) rotate(-1deg)}
+.who::before{content:"🎁";display:block;font-size:1.8rem}
+.who.done{background:var(--palm);border-color:var(--palm);color:#fff}
+.who.done::before{content:"✅"}
+.veil{position:fixed;inset:0;z-index:50;background:rgba(15,5,5,.88);display:none;align-items:center;justify-content:center;padding:20px}
+.veil.on{display:flex}
+.sheet{width:100%;max-width:420px;background:var(--card);border-radius:24px;padding:28px 22px;text-align:center;border:3px solid var(--gold)}
+.sheet .name{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:800;color:var(--red);line-height:1;margin:10px 0;word-break:break-word}
+.env{font-size:4.5rem;line-height:1;animation:pop .5s ease-out}
+@keyframes pop{from{transform:scale(.3) rotate(-25deg);opacity:0}to{transform:none;opacity:1}}
+.shuf{font-size:clamp(2rem,9vw,3.2rem);font-weight:800;color:#fff;text-align:center}
+.stack{display:grid;gap:8px;margin-top:16px}
+.done-banner{background:linear-gradient(90deg,var(--red),#7a0a1c);color:#fff;border-radius:20px;padding:22px;text-align:center;margin-bottom:16px;font-size:1.2rem;font-weight:800}
+@media (prefers-reduced-motion:reduce){.flake{animation:none}.env{animation:none}.who{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"><button id="lang" type="button">EN</button></div>
+  <h1 id="ttl">Amigo Secreto</h1>
+  <p id="sub">Família Reis · Natal em Angola</p>
+  <div class="count" id="count"></div>
+</header>
+<main id="app"></main>
+<div class="veil" id="veil" role="dialog" aria-modal="true"><div id="veilBody"></div></div>
+
+<script>
+var T={
+pt:{sub:"Família Reis · Natal em Angola",days:"Faltam {n} dias para o Natal",today:"Hoje é Natal! Feliz Natal! 🎄",who:"Quem vai jogar?",ph:"Escreve um nome…",add:"Adicionar",rm:"Remover",budget:"Orçamento por presente (Kz)",bph:"ex.: 5000",min:"Precisas de pelo menos 3 pessoas.",dup:"Esse nome já está na lista.",draw:"🎲 Sortear!",rules:"Como funciona",r1:"Cada pessoa recebe o nome de uma outra pessoa.",r2:"Ninguém tira o próprio nome.",r3:"Compra um presente para essa pessoa e guarda segredo.",r4:"No dia 25 de Dezembro trocamos os presentes!",tap:"Toca no teu nome",tapSub:"Passa o telemóvel, um de cada vez. Não espreitem!",left:"Faltam {n} pessoas.",are:"És {n}?",yes:"Sim, sou eu. Revelar",no:"Não, voltar",is:"O teu amigo secreto é",bud:"Orçamento: {b} Kz",copy:"Copiar mensagem",copied:"Copiado!",wa:"Enviar por WhatsApp",close:"Fechar e esconder",all:"Tudo pronto! Vemo-nos no dia 25 🎁",again:"Novo sorteio",sure:"Tens a certeza? Toca outra vez",shuf:"A baralhar os nomes…",msg:"Olá {a}! 🎅 O teu amigo secreto é {b}. Presente até {k} Kz. Natal Reis, 25 de Dezembro 🎁",msg2:"Olá {a}! 🎅 O teu amigo secreto é {b}. Natal Reis, 25 de Dezembro 🎁"},
+en:{sub:"The Reis Family · Christmas in Angola",days:"{n} days until Christmas",today:"It’s Christmas! Merry Christmas! 🎄",who:"Who’s playing?",ph:"Type a name…",add:"Add",rm:"Remove",budget:"Budget per gift (Kz)",bph:"e.g. 5000",min:"You need at least 3 people.",dup:"That name is already on the list.",draw:"🎲 Draw names!",rules:"How it works",r1:"Everyone gets one other person’s name.",r2:"Nobody gets their own name.",r3:"Buy a gift for that person and keep it secret.",r4:"On December 25 we swap gifts!",tap:"Tap your name",tapSub:"Pass the phone around, one at a time. No peeking!",left:"{n} people left.",are:"Are you {n}?",yes:"Yes, it’s me. Reveal",no:"No, go back",is:"Your secret friend is",bud:"Budget: {b} Kz",copy:"Copy message",copied:"Copied!",wa:"Send on WhatsApp",close:"Close and hide",all:"All done! See you on the 25th 🎁",again:"New draw",sure:"Are you sure? Tap again",shuf:"Shuffling the names…",msg:"Hi {a}! 🎅 Your secret friend is {b}. Gift up to {k} Kz. Reis Christmas, December 25 🎁",msg2:"Hi {a}! 🎅 Your secret friend is {b}. Reis Christmas, December 25 🎁"}
+};
+var KEY="reis-amigo-secreto-v1";
+var S={lang:"pt",names:[],budget:"",map:null,seen:[]};
+var armed=false,msgTxt="";
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);if(o&&Array.isArray(o.names)){S=Object.assign(S,o)}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function t(k,v){var s=T[S.lang][k]||k;for(var x in (v||{}))s=s.split("{"+x+"}").join(v[x]);return s}
+function $(id){return document.getElementById(id)}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function rnd(n){try{var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}catch(e){return Math.floor(Math.random()*n)}}
+
+function snow(el,chars,n){for(var i=0;i<n;i++){var s=document.createElement("span");s.className="flake";s.textContent=chars[i%chars.length];s.style.left=(Math.random()*100)+"%";s.style.fontSize=(10+Math.random()*16)+"px";s.style.animationDuration=(5+Math.random()*7)+"s";s.style.animationDelay=(-Math.random()*10)+"s";el.insertBefore(s,el.firstChild)}}
+snow(document.querySelector("header"),["❄","✦","❅","🎄"],26);
+
+function countdown(){var now=new Date(),y=now.getFullYear(),x=new Date(y,11,25),d=Math.ceil((x-new Date(y,now.getMonth(),now.getDate()))/864e5);
+$("count").textContent=d<=0&&d>-1?t("today"):(d<0?t("today"):t("days",{n:d}))}
+
+// Sattolo: one single cycle, so nobody can ever draw themselves
+function draw(){var n=S.names.length,p=[],i;for(i=0;i<n;i++)p.push(i);
+for(i=n-1;i>0;i--){var j=rnd(i),tmp=p[i];p[i]=p[j];p[j]=tmp}
+var m={};for(i=0;i<n;i++)m[i]=p[i];return m}
+
+function render(){
+document.documentElement.lang=S.lang;$("sub").textContent=t("sub");$("lang").textContent=S.lang==="pt"?"EN":"PT";countdown();
+var h="";
+if(!S.map){
+ h+='<section class="card"><h2>'+t("who")+'</h2><form id="f" class="row"><input type="text" id="nm" maxlength="24" placeholder="'+t("ph")+'" aria-label="'+t("ph")+'" autocomplete="off"><button class="btn" type="submit">'+t("add")+'</button></form><p class="muted" id="err" role="status"></p><ul class="chips">';
+ S.names.forEach(function(n,i){h+='<li>'+esc(n)+'<button type="button" data-rm="'+i+'" aria-label="'+t("rm")+' '+esc(n)+'">×</button></li>'});
+ h+='</ul><label for="bg">'+t("budget")+'</label><input type="number" inputmode="numeric" id="bg" min="0" placeholder="'+t("bph")+'" value="'+esc(S.budget)+'">';
+ h+='<button class="btn gold big" id="go" type="button"'+(S.names.length<3?" disabled":"")+'>'+t("draw")+'</button>';
+ if(S.names.length<3)h+='<p class="muted">'+t("min")+'</p>';
+ h+='</section><section class="card"><h2>'+t("rules")+'</h2><ul class="rules"><li>'+t("r1")+'</li><li>'+t("r2")+'</li><li>'+t("r3")+'</li><li>'+t("r4")+'</li></ul></section>';
+}else{
+ var left=S.names.length-S.seen.length;
+ if(left===0)h+='<div class="done-banner" id="ban">'+t("all")+'</div>';
+ h+='<section class="card"><h2>'+t("tap")+'</h2><p class="muted" style="margin:0 0 14px">'+t("tapSub")+(left>0?" "+t("left",{n:left}):"")+'</p><div class="grid">';
+ S.names.forEach(function(n,i){h+='<button type="button" class="who'+(S.seen.indexOf(i)>-1?" done":"")+'" data-who="'+i+'">'+esc(n)+'</button>'});
+ h+='</div></section><button class="btn ghost big" id="reset" type="button">'+(armed?t("sure"):t("again"))+'</button>';
+}
+$("app").innerHTML=h;
+var f=$("f");if(f)f.onsubmit=function(e){e.preventDefault();var v=$("nm").value.trim();if(!v)return;
+ if(S.names.some(function(n){return n.toLowerCase()===v.toLowerCase()})){$("err").textContent=t("dup");return}
+ S.names.push(v);save();render();$("nm").focus()};
+var b=$("bg");if(b)b.oninput=function(){S.budget=b.value;save()};
+if($("go"))$("go").onclick=startDraw;
+if($("reset"))$("reset").onclick=function(){if(!armed){armed=true;render();setTimeout(function(){armed=false;if(S.map)render()},3500);return}
+ armed=false;S.map=null;S.seen=[];save();render()};
+if($("ban"))snow($("ban"),["🎉","🎁","⭐","🎄"],14);
+}
+document.addEventListener("click",function(e){var el=e.target.closest("[data-rm]");if(el){S.names.splice(+el.getAttribute("data-rm"),1);save();render();return}
+ el=e.target.closest("[data-who]");if(el)ask(+el.getAttribute("data-who"))});
+
+function startDraw(){
+ var v=$("veil"),box=$("veilBody");v.classList.add("on");
+ box.innerHTML='<div class="shuf" id="sh"></div><p class="shuf" style="font-size:1rem;opacity:.8;font-weight:400">'+t("shuf")+'</p>';
+ var k=0,iv=setInterval(function(){$("sh").textContent="🎁 "+S.names[rnd(S.names.length)];k++},90);
+ setTimeout(function(){clearInterval(iv);S.map=draw();S.seen=[];save();v.classList.remove("on");render();window.scrollTo(0,0)},1800);
+}
+function ask(i){
+ if(S.seen.indexOf(i)>-1)return;
+ var v=$("veil");v.classList.add("on");
+ $("veilBody").innerHTML='<div class="sheet"><div class="env">✉️</div><h2 style="margin-top:12px">'+t("are",{n:'<span style="color:var(--red)">'+esc(S.names[i])+'</span>'})+'</h2><div class="stack"><button class="btn big" id="yes" type="button" style="margin:0">'+t("yes")+'</button><button class="btn ghost" id="no" type="button">'+t("no")+'</button></div></div>';
+ $("yes").onclick=function(){reveal(i)};$("no").onclick=function(){v.classList.remove("on")};$("yes").focus();
+}
+function reveal(i){
+ var a=S.names[i],b=S.names[S.map[i]],bud=S.budget&&+S.budget>0?(+S.budget).toLocaleString("pt-PT"):"";
+ msgTxt=bud?t("msg",{a:a,b:b,k:bud}):t("msg2",{a:a,b:b});
+ $("veilBody").innerHTML='<div class="sheet"><div class="env">🎅</div><p class="muted" style="margin:6px 0 0">'+t("is")+'</p><div class="name">'+esc(b)+'</div>'+(bud?'<p class="muted" style="margin:0">'+t("bud",{b:bud})+'</p>':'')+
+ '<div class="stack"><button class="btn gold" id="cp" type="button">'+t("copy")+'</button><a class="btn" style="text-decoration:none;display:block" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msgTxt)+'">'+t("wa")+'</a><button class="btn ghost" id="cl" type="button">'+t("close")+'</button></div></div>';
+ $("cp").onclick=function(){var el=$("cp");try{navigator.clipboard.writeText(msgTxt).then(function(){el.textContent=t("copied")})}catch(e){}};
+ $("cl").onclick=function(){if(S.seen.indexOf(i)<0)S.seen.push(i);save();$("veil").classList.remove("on");$("veilBody").innerHTML="";render()};
+}
+$("lang").onclick=function(){S.lang=S.lang==="pt"?"en":"pt";save();render()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("veil").classList.contains("on")&&!$("sh"))$("veil").classList.remove("on")});
+render();
+</script>
+</body>
+</html>
